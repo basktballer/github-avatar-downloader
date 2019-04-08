@@ -20,6 +20,9 @@ function getRepoContributors(repoOwner, repoName, cb) {
 }
 
 getRepoContributors("lighthouse-labs", "tweeter", function(err, result) {
-  console.log("Errors:", err);
-  console.log("Result:", result);
+  var data = JSON.parse(result);
+
+  for (var i = 0; i < data.length; i++) {
+    console.log("Avatar URL:", data[i].avatar_url);
+  }
 });
