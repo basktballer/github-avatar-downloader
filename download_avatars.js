@@ -39,10 +39,15 @@ getRepoContributors(getInput(), function(err, result) {
   var data = JSON.parse(result);
   var fp = '';
 
-  for (var i = 0; i < data.length; i++) {
-    fp = "avatars/" + data[i].login;
-    downloadImageByURL(data[i].avatar_url, fp);
+  if (getInput().length !== 2) {
+    console.log("Incorrect number of parameters passed. Please input exactly 2 values for repoOwner and repoName.")
+  } else {
+    for (var i = 0; i < data.length; i++) {
+      fp = "avatars/" + data[i].login;
+      downloadImageByURL(data[i].avatar_url, fp);
+    }
   }
+
 });
 
 function getInput() {
