@@ -5,7 +5,7 @@ var secret = require('./secrets')
 console.log("Welcome to the GitHub Avatar Downloader!");
 
 function getRepoContributors(repoArr, cb) {
-  // ...
+  // Function that takes in user input arrays and runs callback function defined elsewhere
   var options = {
     url: 'https://api.github.com/repos/' + repoArr[0] + "/" + repoArr[1] + "/contributors",
     headers: {
@@ -14,9 +14,9 @@ function getRepoContributors(repoArr, cb) {
     authorization: secret.GITHUB_TOKEN
   };
 
-  request(options, function(err, res, body) {
-    cb(err, body);
-  });
+  request(options, function(err, res, body) { //run request with options object
+    cb(err, body);  // call back called with body response
+  }); 
 
 }
 
