@@ -4,10 +4,10 @@ var secret = require('./secrets')
 
 console.log("Welcome to the GitHub Avatar Downloader!");
 
-function getRepoContributors(repoOwner, repoName, cb) {
+function getRepoContributors(repoArr, cb) {
   // ...
   var options = {
-    url: 'https://api.github.com/repos/' + repoOwner + "/" + repoName + "/contributors",
+    url: 'https://api.github.com/repos/' + repoArr[0] + "/" + repoArr[1] + "/contributors",
     headers: {
       'User-Agent': 'request'
     },
@@ -35,7 +35,7 @@ function downloadImageByURL (url, filepath) {
         });
 }
 
-getRepoContributors("lighthouse-labs", "tweeter", function(err, result) {
+getRepoContributors(getInput(), function(err, result) {
   var data = JSON.parse(result);
   var fp = '';
 
@@ -44,3 +44,10 @@ getRepoContributors("lighthouse-labs", "tweeter", function(err, result) {
     downloadImageByURL(data[i].avatar_url, fp);
   }
 });
+
+function getInput() {
+  var input = process.argv.slice(2);
+  // console.log(input);
+  return input;
+  // return process.argv.slice(2);
+}
