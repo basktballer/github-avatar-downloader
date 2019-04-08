@@ -11,7 +11,7 @@ function getRepoContributors(repoArr, cb) {
     headers: {
       'User-Agent': 'request'
     },
-    authorization: secret.GITHUB_TOKEN
+    authorization: secret.GITHUB_TOKEN // authorization token saved in secret.js file
   };
 
   request(options, function(err, res, body) { //run request with options object
@@ -21,7 +21,7 @@ function getRepoContributors(repoArr, cb) {
 }
 
 function downloadImageByURL (url, filepath) {
-  // ...
+  // function that saves the image at specified url to given filepath
   request.get(url)
         .on('error', function(err) {
           throw err;
@@ -35,7 +35,11 @@ function downloadImageByURL (url, filepath) {
         });
 }
 
-getRepoContributors(getInput(), function(err, result) {
+getRepoContributors(getInput(), saveRepoContributors);
+
+
+function saveRepoContributors(err, result) {
+  // function that checks user inputs are valid for searching and calls downloadImageByURL in a for loop to download all files
   var data = JSON.parse(result);
   var fp = '';
 
@@ -47,12 +51,10 @@ getRepoContributors(getInput(), function(err, result) {
       downloadImageByURL(data[i].avatar_url, fp);
     }
   }
-
-});
+};
 
 function getInput() {
+  // function that reads user input, saves relevant information and return as an array
   var input = process.argv.slice(2);
-  // console.log(input);
   return input;
-  // return process.argv.slice(2);
 }
