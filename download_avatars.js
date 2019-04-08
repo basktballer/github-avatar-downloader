@@ -1,6 +1,7 @@
 var request = require('request');
 var fs = require('fs');
-var secret = require('./secrets')
+var dotenv = require('dotenv').config();
+
 
 console.log("Welcome to the GitHub Avatar Downloader!");
 
@@ -11,7 +12,7 @@ function getRepoContributors(repoArr, cb) {
     headers: {
       'User-Agent': 'request'
     },
-    authorization: secret.GITHUB_TOKEN // authorization token saved in secret.js file
+    authorization: process.env.GITHUB_TOKEN // authorization token saved in secret.js file
   };
 
   request(options, function(err, res, body) { //run request with options object

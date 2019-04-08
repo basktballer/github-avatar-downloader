@@ -2,6 +2,7 @@
 secrets.js
 avatars
 test.js
+.env
 
 
 # Logs
